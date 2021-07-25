@@ -15,30 +15,23 @@ function buildQuiz() {
 
         // ...add an HTML radio button
         answers.push(
-          `<div class="form-check">
-            <input class="form-check-input" type="radio" name="question${questionNumber}" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1" value="${letter}">
+          `<label>
+            <input type="radio" name="question${questionNumber}" value="${letter}">
             ${letter} :
             ${currentQuestion.answers[letter]}
-          </label>
-          </input>
-          </div>`
+          </label>`
         );
       }
-      var selector = `form-check-input[name=question${questionNumber}]:checked`;
-      console.log(selector);
+
       // add this question and its answers to the output
-      //${placeholder values} Template literals and multi-line and substitution for what is passed}
-      //This is where the current question is passed and should be manipulated - alter the bootstrap here
       output.push(
-        `<div class="mt-1 ml-2 question"> ${currentQuestion.question} </div>
+        `<div class="question"> ${currentQuestion.question} </div>
         <div class="answers"> ${answers.join('')} </div>`
       );
     }
   );
 
   // finally combine our output list into one string of HTML and put it on the page
-  //fix the innerHTML and substitute if for something better....
   quizContainer.innerHTML = output.join('');
 }
 
@@ -55,11 +48,8 @@ function showResults() {
 
     // find selected answer
     const answerContainer = answerContainers[questionNumber];
-    const selector = `form-check-input[name=question${questionNumber}]:checked`;
-    console.log(selector);
-    const userAnswer = (answerContainer.querySelectorAll(selector) || {}).value;
-    //This is broken
-    console.log(userAnswer);
+    const selector = `input[name=question${questionNumber}]:checked`;
+    const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
     // if answer is correct
     if (userAnswer === currentQuestion.correctAnswer) {
