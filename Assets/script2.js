@@ -5,6 +5,7 @@ function buildQuiz() {
 
   // for each question...
   myQuestions.forEach(
+    // console.log("in My questions each");
     (currentQuestion, questionNumber) => {
 
       // variable to store the list of possible answers
@@ -18,12 +19,11 @@ function buildQuiz() {
 
         answers.push(
           `<div class="form-check">
-            <input class="form-check-input" type="radio" name="question${questionNumber}" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1" value="${letter}">
+          <label class="form-check-label" for="flexRadioDefault1">
+            <input class="form-check-input" type="radio" name="question${questionNumber}" id="flexRadioDefault1" checked value="${letter}">
             ${letter} :
             ${currentQuestion.answers[letter]}
           </label>
-          </input>
           </div>`
         );
       }
@@ -33,8 +33,8 @@ function buildQuiz() {
       output.push(
         `<div class="mt-1 ml-2 question"> ${currentQuestion.question} </div>
         <div class="answers"> ${answers.join('')} </div>`
-
       );
+      console.log("in build Quiz");
     }
   );
 
@@ -44,24 +44,34 @@ function buildQuiz() {
 }
 
 function showResults() {
+  console.log("in show results");
 
   // gather answer containers from our quiz
   const answerContainers = quizContainer.querySelectorAll('.answers');
 
   // keep track of user's answers
   let numCorrect = 0;
+  //can I replace the forEach with a map function or a filter function?
+  //How do I isolate the element of the object? 
+  // var answersToQs = myQuestions.map(function(currentQuestion)){
+  //   return currentQuestion.value;
+  // }
 
   // for each question...
   myQuestions.forEach((currentQuestion, questionNumber) => {
 
     // find selected answer
     const answerContainer = answerContainers[questionNumber];
+    console.log(answerContainer);
+    //The form check label has the value. Here I am searching for the check at this question. It finds the check
     const selector = `form-check-input[name=question${questionNumber}]:checked`;
+    const label = `form-check-label[name=quesiton${currentQuestion}]`;
     console.log(selector);
+    console.log(label);
     const userAnswer = (answerContainer.querySelectorAll(selector) || {}).value;
     //This is broken
-    console.log(userAnswer);
-
+    console.log(answerContainer.value);
+    
     // if answer is correct
     if (userAnswer === currentQuestion.correctAnswer) {
       // add to the number of correct answers
@@ -88,38 +98,47 @@ const submitButton = document.getElementById('submit');
 
 const myQuestions = [
   {
-    question: "Who invented JavaScript?",
+    question: "Who invented the modern Internet?",
     answers: {
-      a: "Douglas Crockford",
-      b: "Sheryl Sandberg",
-      c: "Brendan Eich"
+      a: "Al Gore",
+      b: "Marc Andreessen",
+      c: "Bill Gates",
+      d: "Google"
     },
-    correctAnswer: "c"
+    correctAnswer: "b"
   },
   {
-    question: "Which one of these is a JavaScript package manager?",
+    question: "What are the different data types present in javascript?",
     answers: {
-      a: "Node.js",
-      b: "TypeScript",
-      c: "npm"
+      a: "Trulean",
+      b: "BigInt",
+      c: "Defined",
+      d: "Nolte"
     },
-    correctAnswer: "c"
+    correctAnswer: "b"
   },
   {
-    question: "Which tool can you use to ensure code quality?",
+    question: "Is javascript a statically typed or a dynamically typed language?",
     answers: {
-      a: "Angular",
-      b: "jQuery",
-      c: "RequireJS",
-      d: "ESLint"
+      a: "Static",
+      b: "Dynmaic"
     },
-    correctAnswer: "d"
+    correctAnswer: "b"
+  },
+  {
+    question: "In Javascript, primitive data types are passed by value and non-primitive data types are passed by reference.",
+    answers: {
+      a: "FALSE",
+      b: "TRUE"
+    },
+    correctAnswer: "a"
   }
 ];
 
 // display quiz right away
 buildQuiz();
-
+const answerKey = document.getElementsByTagName('form-check-input');
+console.log(answerKey);
 
 // on submit, show results
 submitButton.addEventListener('click', showResults);
