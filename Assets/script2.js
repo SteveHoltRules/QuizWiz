@@ -16,7 +16,7 @@ function buildQuiz() {
         // ...add an HTML radio button
         answers.push(
           `<label>
-            <input type="radio" name="question${questionNumber}" value="${letter}">
+            <input class="form-check-input" type="radio" name="question${questionNumber}" value="${letter}">
             ${letter} :
             ${currentQuestion.answers[letter]}
           </label>`
@@ -77,32 +77,40 @@ const submitButton = document.getElementById('submit');
 
 const myQuestions = [
   {
-    question: "Who invented JavaScript?",
+    question: "Who invented the modern Internet?",
     answers: {
-      a: "Douglas Crockford",
-      b: "Sheryl Sandberg",
-      c: "Brendan Eich"
+      a: "Al Gore",
+      b: "Marc Andreessen",
+      c: "Bill Gates",
+      d: "Google"
     },
-    correctAnswer: "c"
+    correctAnswer: "b"
   },
   {
-    question: "Which one of these is a JavaScript package manager?",
+    question: "What are the different data types present in javascript?",
     answers: {
-      a: "Node.js",
-      b: "TypeScript",
-      c: "npm"
+      a: "Trulean",
+      b: "BigInt",
+      c: "Defined",
+      d: "Nolte"
     },
-    correctAnswer: "c"
+    correctAnswer: "b"
   },
   {
-    question: "Which tool can you use to ensure code quality?",
+    question: "Is javascript a statically typed or a dynamically typed language?",
     answers: {
-      a: "Angular",
-      b: "jQuery",
-      c: "RequireJS",
-      d: "ESLint"
+      a: "Static",
+      b: "Dynmaic"
     },
-    correctAnswer: "d"
+    correctAnswer: "b"
+  },
+  {
+    question: "In Javascript, primitive data types are passed by value and non-primitive data types are passed by reference.",
+    answers: {
+      a: "FALSE",
+      b: "TRUE"
+    },
+    correctAnswer: "b"
   }
 ];
 
