@@ -116,3 +116,4 @@ buildQuiz();
 //Event Listeners
 submitButton.addEventListener('click', showResults);
 
+startBtn.onclick = question1Quiz();

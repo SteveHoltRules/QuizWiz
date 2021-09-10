@@ -10,7 +10,7 @@ function buildQuiz() {
 
       // variable to store the list of possible answers
       const answers = [];
-
+      var singleAnswer = $("#answer").val()
       // and for each available answer...
       for (letter in currentQuestion.answers) {
 
@@ -34,6 +34,9 @@ function buildQuiz() {
         `<div class="mt-1 ml-2 question"> ${currentQuestion.question} </div>
         <div class="answers"> ${answers.join('')} </div>`
       );
+      
+      document.getElementById('answers', singleAnswer);
+      localStorage.setItem('answers');
       console.log("in build Quiz");
     }
   );
