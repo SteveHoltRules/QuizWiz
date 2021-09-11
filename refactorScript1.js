@@ -57,15 +57,9 @@ const startQuiz = function () {
       console.log("in second loop");
       var letter = myQuestions[i].answers[j];
       //this seems like an accessive amount of classes.
-      var ansLi = $("<div>").addClass("form-check");
-      var ansLabels = $("<label>").addClass("form-check-label").attr('for', "flexRadioDefault1");
-      var ansInput = $("<input>").addClass("form-check-input").attr("type", "radio");
-      var ansValue = $("<input>").addClass("form-check-input")
-                      .attr("type", "radio")
-                      .attr("name", `question${i}`)
-                      .attr("id", "flexRadioDefault1")
-                      .text(`${myQuestions[i].answers[j]}`);
-      ansLi.append(ansLabels, ansInput, ansValue)
+      var ansLi = $("<div>");
+      ansli.addClass("form-check")
+      ansli.text(`${myQuestions[i].answers[j]}`);
       $("#quiz").append(ansLi);
     }
   }
