@@ -57,8 +57,9 @@ const startQuiz = function () {
       console.log("in second loop");
       var letter = myQuestions[i].answers[j];
       //this seems like an accessive amount of classes.
+      //creates an HTML element
       var ansLi = $("<div>");
-      ansli.addClass("form-check")
+      ansli.addClass("form-check");
       ansli.text(`${myQuestions[i].answers[j]}`);
       $("#quiz").append(ansLi);
     }

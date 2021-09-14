@@ -48,10 +48,11 @@ function buildQuiz() {
   const output = [];
 
   //for each question
-  myQuestions.forEach(
-    (currentQuestion, questionNumber) => {
+  for (var i = 0; i < myQuestions.length; i++) {
+    console.log(myQuestions[i])
+    const askQuestion = function (currentQuestion, questionNumber) {
 
-      //variable to store teh list of possible answers
+      //variable to store teh list of possible answers - extend out to store the answer in local storage as answeri
       const answers = [];
 
       //and for each available answer
@@ -66,14 +67,16 @@ function buildQuiz() {
           </label>`
         );
       }
+    }
 
-      // add this question and its answer to the output
-      output.push(
-        '<div class="question">${currentQuestion.question}</div><div class= "answers"> ${answers.join('')} </div>'
-      );
-    });
+    // add this question and its answer to the output
+    output.push(
+      `<div class="question">${currentQuestion.question}</div><div class= "answers"> ${answers.join('')} </div>`
+    );
+  });
   //Combine output list inot one string of HTML
   quizContainer.innerHTML = output.join('')
+}
 }
 
 function showResults() {
@@ -108,7 +111,14 @@ function showResults() {
   resultsContainer.innerHTML = '${numCorrect} our of ${myQuestions.length}';
 }
 
+function nextQuestion() {
+  //recall the next question
+  for (var i = 0; i < myQuestions.length; i++) {
+    console.log(myQuestions[i])
+  }
+  //after the question is called, wait on a response. After the response, then loop to the next question
 
+}
 
 //kick things off
 buildQuiz();
@@ -116,4 +126,10 @@ buildQuiz();
 //Event Listeners
 submitButton.addEventListener('click', showResults);
 
-startBtn.onclick = question1Quiz();
+//I need a button to start
+//I need a button to progress after each question until the end
+startBtn.onclick = buildQuiz;
+
+
+quizBtn.onClick = nextQuestion;
+

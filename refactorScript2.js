@@ -51,37 +51,55 @@ var contained;
 
 // when user clicks submit, show results
 // put this at the bottom after finished
-const generateQuiz = () =>
-  showQuestions(myQuestions[buttonPressed], quizContainer);
-submitButton.onclick = function () {
+
+
+const generateQuiz = () => {
+  //I removed the submitButton from inside the generate quiz function. 
+  //I am asking to display the questions 
+  // showQuestions(myQuestions[buttonPressed], quizContainer);
+  console.log("After the first show questions is called");
+  console.log(myQuestions[buttonPressed]);
+  //Submit button is called within he generate quiz and therefore the first call is not triggering
   output = [];
   showQuestions(myQuestions[buttonPressed], quizContainer);
   //roll through incrementing on the button press
-  if (buttonPressed < myQuestions.length) {
+  if (buttonPressed < myQuestions.length-1) {
     console.log(buttonPressed);
+    //fix array to only be to the length of the questions...
     buttonPressed += 1;
   } else {
     showResults(myQuestions[buttonPressed], quizContainer, resultsContainer);
   }
 };
 
-function showQuestions(questions, quizContainer) {
+submitButton.onclick = generateQuiz;
+
+//This is causing an asynch problem...
+const showQuestions = function(questions, quizContainer) {
   console.log("In Show Questions");
-  var results = questions.toString();
-  console.log(results);
-  console.log(questions.answers);
+  console.log(questions[buttonPressed]);
+  //stopping point - I don't konw why it doesn't like the questions.answer...
+  // var results = questions[buttonPressed];
+  // console.log(results);
+  // console.log(questions.answers);
+
   // code will go here
-  var answers = [];
+  var answersArr = [];
+  //This code doesn't like answers because questions[buttonPressed].answers["a"] returns the value not questions[buttonPressed].answers[0]
+  //It doesn't like answers because answers isn't defined like Questions is...How do I define the answers of questions? 
+  //If I swap questions for myQuestions then the code works...
+  var answerKeys = Object.keys(questions[buttonPressed].answers);
+  console.log(answerKeys);
 
   //for each answer
   //the code doesn't like the questions.answers
-  for (letter in questions.answers) {
-    answers.push(
-      // why do I push instead of append?!
+
+  for (letter in questions[buttonPressed].answers[letter]) {
+    answersArr.push(
       `<label>
             <input type="radio" name=question[${buttonPressed}] value=${letter}>
             ${letter}:
-            ${questions.answers[letter]}
+            ${questions[buttonPressed].answers[letter]}
           </label>`
     );
   }
@@ -90,15 +108,15 @@ function showQuestions(questions, quizContainer) {
     `<div class="question">
           ${questions.question}
         </div>
-        <div class="answers"> ${answers.join("")}
+        <div class="answers"> ${answersArr.join("")}
         <div>`
   );
 
   answersOutput.push(
     `<div class="submittedQuestion">
-          ${questions.question}
+          ${questions[buttonPressed]}
         </div>
-        <div class="submittedAnswers"> ${answers.join("")}
+        <div class="submittedAnswers"> ${answersArr.join("")}
         <div>`
   );
   contained = answersOutput.join("");
