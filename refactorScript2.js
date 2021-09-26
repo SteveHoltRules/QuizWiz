@@ -47,21 +47,14 @@ var buttonPressed = 0;
 var output = [];
 var answersOutput = [];
 var contained;
-//clear everything with a new function
-
-// when user clicks submit, show results
-// put this at the bottom after finished
-
 
 const generateQuiz = () => {
-
-  // output = [];
   showQuestions(myQuestions[buttonPressed], quizContainer);
   //roll through incrementing on the button press
-  if (buttonPressed < myQuestions.length-1) {
+  if (buttonPressed < myQuestions.length - 1) {
     console.log(buttonPressed);
     //fix array to only be to the length of the questions...
-    return buttonPressed += 1;
+    return (buttonPressed =+ 1);
   } else {
     showResults(myQuestions[buttonPressed], quizContainer, resultsContainer);
   }
@@ -70,18 +63,19 @@ const generateQuiz = () => {
 submitButton.onclick = generateQuiz;
 
 //This is causing an asynch problem...
-const showQuestions = function(questions, quizContainer) {
+const showQuestions = function () {
   console.log("In Show Questions");
   console.log(myQuestions[buttonPressed]);
 
   // code will go here
   var answersArr = [];
   var output = [];
-  
+  var questionObj = Object.entries(myQuestions[buttonPressed])
   var answerObj = Object.entries(myQuestions[buttonPressed].answers);
   var answerKeys = Object.fromEntries(answerObj);
   console.log(answerKeys);
 
+  //asynch problem
   for (var i = 0; i < answerKeys.length; i++) {
     answersArr.push(
       `<label>
@@ -91,10 +85,11 @@ const showQuestions = function(questions, quizContainer) {
           </label>`
     );
   }
+
   //add question and answer to the output
   output.push(
     `<div class="question">
-          ${questions.question}
+          ${myQuestions.question}
         </div>
         <div class="answers"> ${answersArr.join("")}
         <div>`
@@ -102,15 +97,17 @@ const showQuestions = function(questions, quizContainer) {
 
   answersOutput.push(
     `<div class="submittedQuestion">
-          ${questions[buttonPressed]}
+          ${questionObj}
         </div>
         <div class="submittedAnswers"> ${answersArr.join("")}
         <div>`
   );
-  contained = answersOutput.join("");
 
-  quizContainer.innerHTML = output.join("");
-}
+  contained = answersOutput.join("");
+  console.log(contained);
+  // quizContainer.innerHTML = output.join("");
+  // quizContainer.innerHTML = contained;
+};
 
 function showResults(questions, quizContainer, resultsContainer) {
   // code will go here
