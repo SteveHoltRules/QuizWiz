@@ -8,14 +8,14 @@ const submitButton = document.getElementById('submit');
 //Quiz Questions:
 const myQuestions = [
   {
-    question: "Who invented the modern Internet?",
+    question: "Who governs Javascript?",
     answers: {
-      a: "Al Gore",
-      b: "Marc Andreessen",
-      c: "Bill Gates",
-      d: "Google"
+      a: "NASA",
+      b: "ECMA",
+      c: "FASB",
+      d: "Google",
     },
-    correctAnswer: "b"
+    correctAnswer: "b",
   },
   {
     question: "What are the different data types present in javascript?",
@@ -23,26 +23,28 @@ const myQuestions = [
       a: "Trulean",
       b: "BigInt",
       c: "Defined",
-      d: "Nolte"
+      d: "Nolte",
     },
-    correctAnswer: "b"
+    correctAnswer: "b",
   },
   {
-    question: "Is javascript a statically typed or a dynamically typed language?",
+    question:
+      "Is javascript a statically typed or a dynamically typed language?",
     answers: {
       a: "Static",
-      b: "Dynmaic"
+      b: "Dynmaic",
     },
-    correctAnswer: "b"
+    correctAnswer: "b",
   },
   {
-    question: "In Javascript, primitive data types are passed by value and non-primitive data types are passed by reference.",
+    question:
+      "In Javascript, primitive data types are passed by value and non-primitive data types are passed by reference.",
     answers: {
       a: "FALSE",
-      b: "TRUE"
+      b: "TRUE",
     },
-    correctAnswer: "a"
-  }
+    correctAnswer: "a",
+  },
 ];
 
 //startquiz button - this should be contained in the quiz
