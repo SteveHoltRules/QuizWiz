@@ -1,6 +1,6 @@
 var quizContainer = document.getElementById("quiz");
 var resultsContainer = document.getElementById("results");
-var submitButton = document.getElementById("submit");
+let submitButton = document.getElementById("submit");
 
 const myQuestions = [
   {
@@ -24,8 +24,7 @@ const myQuestions = [
     correctAnswer: "b",
   },
   {
-    question:
-      "Is javascript a statically typed or a dynamically typed language?",
+    question: "Is javascript a statically typed or a dynamically typed language?",
     answers: {
       a: "Static",
       b: "Dynmaic",
@@ -33,8 +32,7 @@ const myQuestions = [
     correctAnswer: "b",
   },
   {
-    question:
-      "In Javascript, primitive data types are passed by value and non-primitive data types are passed by reference.",
+    question: "In Javascript, primitive data types are passed by value and non-primitive data types are passed by reference.",
     answers: {
       a: "FALSE ",
       b: "TRUE",
@@ -50,11 +48,12 @@ var contained;
 
 const generateQuiz = () => {
   showQuestions(myQuestions[buttonPressed], quizContainer);
+  console.log("Length of MyQuestions: ", myQuestions.length)
   //roll through incrementing on the button press
-  if (buttonPressed < myQuestions.length - 1) {
+  if (buttonPressed <= 1) {
     console.log(buttonPressed);
     //fix array to only be to the length of the questions...
-    return (buttonPressed =+ 1);
+    buttonPressed++;
   } else {
     showResults(myQuestions[buttonPressed], quizContainer, resultsContainer);
   }
@@ -70,18 +69,19 @@ const showQuestions = function () {
   // code will go here
   var answersArr = [];
   var output = [];
-  var questionObj = Object.entries(myQuestions[buttonPressed])
-  var answerObj = Object.entries(myQuestions[buttonPressed].answers);
-  var answerKeys = Array.from(answerObj);
-  console.log(answerKeys);
+  var questionObj = myQuestions[buttonPressed].question;
+  var answerObj = myQuestions[buttonPressed].answers;
+  var answerKeys = Object.keys(myQuestions[buttonPressed].answers);
+  console.log("answerObj: ", answerObj);
 
-  //asynch problem
+  console.log("AnswerKeys: ", answerKeys);
+
   for (var i = 0; i < answerKeys.length; i++) {
     answersArr.push(
       `<label>
-            <input type="radio" name=question[${buttonPressed}] value=${i}>
-            ${i}:
-            ${answerKeys}
+            <input type="radio" name=question[${buttonPressed}] value=${answerKeys[i]}>
+            ${answerKeys[i]} :
+            ${answerObj[answerKeys[i]]}
           </label>`
     );
   }
@@ -95,13 +95,7 @@ const showQuestions = function () {
         </div>`
   );
 
-  answersOutput.push(
-    `<div class="submittedQuestion">
-          ${questionObj}
-        </div>
-        <div class="submittedAnswers"> ${answersArr.join("")}
-        </div>`
-  );
+
 
   contained = answersOutput.join("");
   console.log(contained);
@@ -109,9 +103,17 @@ const showQuestions = function () {
   console.log("AnswersArr: ", answersArr);
   quizContainer.innerHTML = output.join("");
   // quizContainer.innerHTML = contained;
+
+  answersOutput.push(
+      `<div class="submittedQuestion">
+          ${questionObj}
+        </div>
+        <div class="submittedAnswers"> ${answersArr.join("")}
+        </div>`
+    );
 };
 
-function showResults(questions, quizContainer, resultsContainer) {
+var showResults = function(questions, quizContainer, resultsContainer) {
   // code will go here
   //This is over selecting...why? Is it an array function?
   quizContainer.innerHTML = contained;
@@ -119,8 +121,7 @@ function showResults(questions, quizContainer, resultsContainer) {
   //How do I break up the contained answerOutput into an array
   var answerContainers = quizContainer.querySelectorAll(".answers");
 
-  console.log("Answer Containers Type Of");
-  console.log(typeof answerContainers);
+  console.log("Answer Containers Type Of :", typeof answerContainers);
 
   //keep track of user's answers
   var userAnswer = "";
@@ -129,7 +130,7 @@ function showResults(questions, quizContainer, resultsContainer) {
   //for each question
   for (var i = 0; i < answersOutput.length; i++) {
     userAnswer = (
-      answersOutput[i].querySelector(`input[name=question${i}]:checked`) || {}
+      answersOutput[i](`input[name=question${i}]:checked`) || {}
     ).value;
 
     //if answer is correct
@@ -145,7 +146,7 @@ function showResults(questions, quizContainer, resultsContainer) {
   resultsContainer.innerHTML = `${numCorrect} out of ${questions.length}`;
 }
 
-generateQuiz;
+// generateQuiz;
 
 //How could I break up this program so that only one question is displayed at a time?
 //I could put an if statement that surrounds the logic and waits on an answer before going to the next question
