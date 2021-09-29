@@ -72,7 +72,7 @@ const showQuestions = function () {
   var output = [];
   var questionObj = Object.entries(myQuestions[buttonPressed])
   var answerObj = Object.entries(myQuestions[buttonPressed].answers);
-  var answerKeys = Object.fromEntries(answerObj);
+  var answerKeys = Array.from(answerObj);
   console.log(answerKeys);
 
   //asynch problem
@@ -89,10 +89,10 @@ const showQuestions = function () {
   //add question and answer to the output
   output.push(
     `<div class="question">
-          ${myQuestions.question}
+          ${myQuestions[buttonPressed].question}
         </div>
         <div class="answers"> ${answersArr.join("")}
-        <div>`
+        </div>`
   );
 
   answersOutput.push(
@@ -100,12 +100,14 @@ const showQuestions = function () {
           ${questionObj}
         </div>
         <div class="submittedAnswers"> ${answersArr.join("")}
-        <div>`
+        </div>`
   );
 
   contained = answersOutput.join("");
   console.log(contained);
-  // quizContainer.innerHTML = output.join("");
+  console.log("MyQuestions.Question: ", myQuestions[buttonPressed].question);
+  console.log("AnswersArr: ", answersArr);
+  quizContainer.innerHTML = output.join("");
   // quizContainer.innerHTML = contained;
 };
 
@@ -143,7 +145,7 @@ function showResults(questions, quizContainer, resultsContainer) {
   resultsContainer.innerHTML = `${numCorrect} out of ${questions.length}`;
 }
 
-// generateQuiz;
+generateQuiz;
 
 //How could I break up this program so that only one question is displayed at a time?
 //I could put an if statement that surrounds the logic and waits on an answer before going to the next question
