@@ -2,6 +2,12 @@ var quizContainer = document.getElementById("quiz");
 var resultsContainer = document.getElementById("results");
 let submitButton = document.getElementById("submit");
 
+//Listeners
+
+document.getElementById("myBtn").addEventListener("click", function () {
+  document.getElementById("demo").innerHTML = "Hello World";
+});
+
 const myQuestions = [
   {
     question: "Who governs Javascript?",
@@ -77,11 +83,13 @@ const showQuestions = function () {
   var questionObj = myQuestions[buttonPressed].question;
   var answerObj = myQuestions[buttonPressed].answers;
   var answerKeys = Object.keys(myQuestions[buttonPressed].answers);
+  var answerSigns = [];
   console.log("answerObj: ", answerObj);
 
   console.log("AnswerKeys: ", answerKeys);
 
   for (var i = 0; i < answerKeys.length; i++) {
+    //This for loop returns the answer keys - there does not seem to be down stream logic from it
     answersArr.push(
       `<label>
             <input type="radio" name=question[${buttonPressed}] value=${
@@ -102,12 +110,10 @@ const showQuestions = function () {
         </div>`
   );
 
-  contained = answersOutput.join("");
   // console.log("Contained: ", contained);
   // console.log("MyQuestions.Question: ", myQuestions[buttonPressed].question);
-  // console.log("AnswersArr: ", answersArr);
   quizContainer.innerHTML = output.join("");
-  // quizContainer.innerHTML = contained;
+  console.log("Value: ", quizContainer.value);
 
   answersOutput.push(
     `<div class="submittedQuestion">
@@ -116,20 +122,28 @@ const showQuestions = function () {
         <div class="submittedAnswers"> ${answersArr.join("")}
         </div>`
   );
+
+  contained = answersOutput.join("");
+
   return buttonPressed++;
+  
 };
 
 var showResults = function (questions, quizContainer, resultsContainer) {
   console.log("Questions: ", questions);
+  //There is no returned value from checking the answer
   console.log("AnswersOutput: ", answersOutput);
   
+  console.log("Contained: ", contained);
   quizContainer.innerHTML = contained;
 
   //How do I break up the contained answerOutput into an array
   var answerContainers = quizContainer.querySelectorAll(".submittedAnswers");
 
   console.log("Answer Containers Type Of :", typeof answerContainers);
-  console.log("Answers Container:" , answerContainers.value);
+  console.log("Answers Containers: " , answerContainers);
+  //I found the submitted answers div but not the value. How do I return the value of the submitted answers?
+  //The submitted answers is not falling in the right spot. 
 
   //keep track of user's answers
   var userAnswer = "";
@@ -140,9 +154,9 @@ var showResults = function (questions, quizContainer, resultsContainer) {
   // console.log("Max Question: ", maxQuestions);
   //for each question
   for (var i = 0; i < answersOutput.length; i++) {
-
+    //Need to have a cleaner array to evaluate the answers from
     // userAnswer = (answersOutput[i](`input[name=question${i}]:checked`) || {}).value;
-    userAnswer = (answersOutput[i].value);
+    userAnswer = (answersOutput[i]);
     console.log("UserAnswer: ", userAnswer);
     //if answer is correct
     if (userAnswer === questions[i].correctAnswer) {
