@@ -4,9 +4,6 @@ let submitButton = document.getElementById("submit");
 
 //Listeners
 
-document.getElementById("myBtn").addEventListener("click", function () {
-  document.getElementById("demo").innerHTML = "Hello World";
-});
 
 const myQuestions = [
   {
@@ -90,6 +87,10 @@ const showQuestions = function () {
 
   for (var i = 0; i < answerKeys.length; i++) {
     //This for loop returns the answer keys - there does not seem to be down stream logic from it
+    var getValue = document.innerHTML;
+    document
+      .getElementById(`question[${buttonPressed}][${answerKeys[i]}]`)
+      .addEventListener("click", getValue);
     answersArr.push(
       `<label>
             <input type="radio" name=question[${buttonPressed}] value=${
@@ -101,6 +102,8 @@ const showQuestions = function () {
     );
   }
 
+
+  
   //add question and answer to the output
   output.push(
     `<div class="question">
@@ -172,6 +175,3 @@ var showResults = function (questions, quizContainer, resultsContainer) {
 };
 
 // generateQuiz;
-
-//How could I break up this program so that only one question is displayed at a time?
-//I could put an if statement that surrounds the logic and waits on an answer before going to the next question
